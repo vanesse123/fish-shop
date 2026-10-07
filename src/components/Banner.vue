@@ -4,7 +4,7 @@ import { ref } from 'vue'
 const banners = [
   '/images/banner/test_banner.jpg',
   '/images/banner/test_banner2.jpg',
-  '/images/banner/test_banner3.jpg',
+  '/images/banner/test_banner3.png',
 ]
 
 const currentIndex = ref(0)

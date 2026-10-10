@@ -8,7 +8,7 @@
         <img
             :src="product.image"
             :alt="product.name"
-            class="w0full h-48 object-cover"
+            class="w-full h-48 object-cover"
         >
 
         <!-- 商品資訊 -->
@@ -35,6 +35,8 @@
                     {{ product.discount }}% OFF
                 </span>
             </div>
+
+            <slot />
             
         </div>
     </div>

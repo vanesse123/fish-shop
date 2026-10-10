@@ -6,6 +6,7 @@ export const products = [
         originalPrice: 599,
         discount: 33,
         image: '/images/products/mouse.jpg',
+        soldPercent: 60,
     },
     {
         id: 2,
@@ -14,6 +15,7 @@ export const products = [
         originalPrice: 1590,
         discount: 19,
         image: '/images/products/keyboard.jpg',
+        soldPercent: 75,
     },
     {
         id: 3,
@@ -22,6 +24,7 @@ export const products = [
         originalPrice: 1190,
         discount: 25,
         image: '/images/products/headset.jpg',
+        soldPercent: 80,
     },
     {
         id: 4,
@@ -30,5 +33,6 @@ export const products = [
         originalPrice: 399,
         discount: 25,
         image: '/images/products/mousepad.jpg',
+        soldPercent: 45,
     },
 ]

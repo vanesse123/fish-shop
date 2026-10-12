@@ -7,6 +7,7 @@ export const products = [
         discount: 33,
         image: '/images/products/mouse.jpg',
         soldPercent: 60,
+        category: '電腦與周邊',
     },
     {
         id: 2,
@@ -16,6 +17,7 @@ export const products = [
         discount: 19,
         image: '/images/products/keyboard.jpg',
         soldPercent: 75,
+        category: '電腦與周邊',
     },
     {
         id: 3,
@@ -25,6 +27,7 @@ export const products = [
         discount: 25,
         image: '/images/products/headset.jpg',
         soldPercent: 80,
+        category: '電腦與周邊',
     },
     {
         id: 4,
@@ -34,5 +37,6 @@ export const products = [
         discount: 25,
         image: '/images/products/mousepad.jpg',
         soldPercent: 45,
+        category: '電腦與周邊',
     },
 ]

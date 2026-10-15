@@ -12,12 +12,12 @@ const selectedCategory = ref('全部商品')
 <template>
   <Navbar />
 
+  <Banner />
+
   <CategoryNav 
     :selected-category="selectedCategory"
     @change-category="selectedCategory = $event"
   />
-
-  <Banner />
 
   <ProductList 
     :selected-category="selectedCategory"

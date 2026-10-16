@@ -1,28 +1,51 @@
 <script setup>
-import { computed} from 'vue'
+import { computed,ref } from 'vue'
 import { products } from '../data/products.js'
 import ProductCard from './ProductCard.vue'
 
-const props =defineProps(['selectedCategory'])
+const props = defineProps(['selectedCategory'])
+
+//default,price-asc,price-desc
+const sortOrder = ref('default')
 
 const filteredProducts = computed(() => {
+    let result
+
     if(props.selectedCategory === '全部商品'){
-        return products
+        result =  [...products]
+    } else {
+        result = products.filter((product) => {
+            return product.category === props.selectedCategory
+        })
     }
 
-    return products.filter((product) => {
-        return product.category === props.selectedCategory
-    })
+    if (sortOrder.value === 'price-asc') {
+        result.sort((a,b) => a.price - b.price)
+    } else if (sortOrder.value === 'price-desc') {
+        result.sort((a,b) => b.price - a.price)
+    }
+
+    return result
 })
 
 </script>
 
 <template>
     <section class="max-w-7xl mx-auto px-4 py-8">
+        <div class="flex items-center justify-between mb-6">
+            <h2 class="text-2xl font-bold">
+                商品推薦
+            </h2>
 
-        <h2 class="text-2xl font-bold mb-6">
-            商品推薦
-        </h2>
+            <select
+                v-model="sortOrder"
+                class="border rounded-md px-3 py-2 text-sm"
+            >
+                <option value="default">預設排序</option>
+                <option value="price-asc">價格由低到高</option>
+                <option value="price-desc">價格由高到低</option>
+            </select>
+        </div>
 
         <!-- 商品列表 -->
         <div class="grid grid-cols-2 md:grid-cols-4 gap-6">

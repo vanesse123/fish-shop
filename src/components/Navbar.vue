@@ -1,5 +1,9 @@
 <script setup>
+import { ref } from 'vue'
 
+const searchKeyword = ref('')
+
+const emit = defineEmits(['search'])
 </script>
 
 <template>
@@ -55,12 +59,14 @@
                     <div class="flex bg-white rounded-sm overflow-hidden">
 
                         <input
+                            v-model="searchKeyword"
                             type="text"
                             placeholder="搜尋商品"
                             class="flex-1 px-4 pt-2 text-gray-700 outline-none"
                         />
 
                         <button
+                            @click="emit('search', searchKeyword)"
                             class="bg-blue-500 px-6 hover:bg-blue-600"
                         >
                             搜尋

@@ -7,10 +7,17 @@ import ProductList from './components/ProductList.vue'
 import SaleSection from './components/SaleSection.vue'
 
 const selectedCategory = ref('全部商品')
+
+const searchKeyword = ref('')
+
+function searchProducts(keyword){
+  searchKeyword.value = keyword.trim()
+}
+
 </script>
 
 <template>
-  <Navbar />
+  <Navbar @search="searchProducts" />
 
   <Banner />
 
@@ -21,6 +28,7 @@ const selectedCategory = ref('全部商品')
 
   <ProductList 
     :selected-category="selectedCategory"
+    :search-keyword="searchKeyword"
   />
 
   <SaleSection />

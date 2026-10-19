@@ -3,14 +3,18 @@ import { computed,ref } from 'vue'
 import { products } from '../data/products.js'
 import ProductCard from './ProductCard.vue'
 
-const props = defineProps(['selectedCategory'])
+const props = defineProps([
+    'selectedCategory',
+    'searchKeyword'
+])
 
 //default,price-asc,price-desc
 const sortOrder = ref('default')
 
 const filteredProducts = computed(() => {
     let result
-
+    
+    //分類
     if(props.selectedCategory === '全部商品'){
         result =  [...products]
     } else {
@@ -19,6 +23,16 @@ const filteredProducts = computed(() => {
         })
     }
 
+    //搜尋關鍵字
+    if(props.searchKeyword) {
+        result = result.filter((product) => {
+            return product.name
+                .toLowerCase()
+                .includes(props.searchKeyword.toLowerCase())
+        })
+    }
+
+    //價格排序
     if (sortOrder.value === 'price-asc') {
         result.sort((a,b) => a.price - b.price)
     } else if (sortOrder.value === 'price-desc') {

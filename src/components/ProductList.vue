@@ -75,7 +75,7 @@ const filteredProducts = computed(() => {
             v-if="filteredProducts.length === 0"
             class="text-center text-gray-500 py-10"
         >
-            這個分類目前沒有商品
+            沒有找到符合條件的商品，請試試其他關鍵字或分類。
         </p>
 
     </section>

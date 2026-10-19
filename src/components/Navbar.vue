@@ -4,6 +4,25 @@ import { ref } from 'vue'
 const searchKeyword = ref('')
 
 const emit = defineEmits(['search'])
+
+const hotKeywords = [
+    '滑鼠',
+    '滑鼠墊',
+    '鍵盤',
+    '音響',
+    '行動電源',
+    '手機殼',
+]
+
+function searchByKeyword(keyword) {
+    searchKeyword.value = keyword
+    emit('search',searchKeyword.value)
+}
+
+function clearSearch() {
+    searchKeyword.value = ''
+    emit('search','')
+}
 </script>
 
 <template>
@@ -56,7 +75,10 @@ const emit = defineEmits(['search'])
 
                 <!-- 搜尋 -->
                 <div class="flex-1">
-                    <div class="flex bg-white rounded-sm overflow-hidden">
+                    <form 
+                        @submit.prevent="emit('search',searchKeyword)"
+                        class="flex bg-white rounded-sm overflow-hidden"
+                    >
 
                         <input
                             v-model="searchKeyword"
@@ -66,22 +88,34 @@ const emit = defineEmits(['search'])
                         />
 
                         <button
-                            @click="emit('search', searchKeyword)"
+                            v-if="searchKeyword"
+                            type="button"
+                            @click="clearSearch"
+                            class="px-3 text-gray-500 hover:text-gray-800"
+                        >
+                           ✖
+                        </button>
+
+                        <button
+                            type="submit"
                             class="bg-blue-500 px-6 hover:bg-blue-600"
                         >
                             搜尋
                         </button>
 
-                    </div>
+                    </form>
 
                     <!-- 熱門搜尋 -->
                     <div class="flex gap-4 mt-2 text-sm">
-                        <a href="#" class="hover:text-gray-300">滑鼠</a>
-                        <a href="#" class="hover:text-gray-300">滑鼠墊</a>
-                        <a href="#" class="hover:text-gray-300">鍵盤</a>
-                        <a href="#" class="hover:text-gray-300">音響</a>
-                        <a href="#" class="hover:text-gray-300">行動電源</a>
-                        <a href="#" class="hover:text-gray-300">手機殼</a>
+                        <button
+                            v-for="keyword in hotKeywords"
+                            :key="keyword"
+                            type="button"
+                            @click="searchByKeyword(keyword)"
+                            class="hover:text-gray-300"
+                        >
+                            {{ keyword }}
+                        </button>
                     </div>
 
                 </div>

@@ -1,9 +1,14 @@
 <script setup>
     defineProps(['product'])
+
+    const emit = defineEmits(['select-product'])
 </script>
 
 <template>
-    <div class="bg-white rounded-lg overflow-hidden shadow hover:shadow-lg translate">
+    <div
+        @click="emit('select-product',product)"
+        class="bg-white rounded-lg overflow-hidden shadow hover:shadow-lg transition cursor-pointer"
+    >
         <!-- 商品圖片 -->
         <img
             :src="product.image"
@@ -14,7 +19,7 @@
         <!-- 商品資訊 -->
         <div class="p-4">
 
-            <h3 class="text-lg font-medium trumcate">
+            <h3 class="text-lg font-medium truncate">
                 {{ product.name }}
             </h3>
 

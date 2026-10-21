@@ -8,6 +8,8 @@ const props = defineProps([
     'searchKeyword'
 ])
 
+const emit = defineEmits(['select-product'])
+
 //default,price-asc,price-desc
 const sortOrder = ref('default')
 
@@ -67,6 +69,7 @@ const filteredProducts = computed(() => {
                 v-for="product in filteredProducts"
                 :key="product.id"
                 :product="product"
+                @select-product="emit('select-product',$event)"
             />
         </div>
 

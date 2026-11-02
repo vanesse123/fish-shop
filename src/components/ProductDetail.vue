@@ -1,7 +1,10 @@
 <script setup>
-defineProps(['product'])
+import { ref } from 'vue'
 
-const emit = defineEmits(['back'])
+defineProps(['product'])
+const emit = defineEmits(['back', 'add-to-cart'])
+
+const quantity = ref(1)
 </script>
 
 <template>
@@ -53,7 +56,40 @@ const emit = defineEmits(['back'])
             </div>
 
             <div class="mt-8">
+                <p class="text-sm text-gray-600 mb-3">
+                    購買數量
+                </p>
+
+                <div class="flex items-center gap-3">
+                    <!-- 減少數量 -->
+                    <button
+                        @click="quantity = Math.max(1,quantity - 1)"
+                        class="w-10 h-10 border rounded hover:bg-gray-100 transition"
+                    >
+                        −
+                    </button>
+
+                    <!-- 顯示數量 -->
+                    <span class="w-10 text-center text-lg">
+                        {{ quantity }}
+                    </span>
+
+                    <!-- 增加數量 -->
+                    <button
+                        @click="quantity++"
+                        class="w-10 h-10 border rounded hover:bg-gray-100 transition"
+                    >
+                        +
+                    </button>
+                </div>
+            </div>
+
+            <div class="mt-8">
                 <button
+                @click="emit('add-to-cart', {
+                    product: product,
+                    quantity: quantity
+                })"
                     class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition"
                 >
                     加入購物車

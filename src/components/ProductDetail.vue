@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 
 defineProps(['product'])
-const emit = defineEmits(['back', 'add-to-cart'])
+const emit = defineEmits(['back', 'add-to-cart' , 'open-cart'])
 
 const quantity = ref(1)
 </script>
@@ -30,31 +30,35 @@ const quantity = ref(1)
 
             <!-- 商品資訊 -->
             <div class="flex flex-col">
+                <!-- 商品名稱 -->
                 <h1 class="text-3xl font-bold text-gray-800">
                     {{ product.name }}
                 </h1>
 
                 <div class="mt-6">
+                    <!-- 商品價格 -->
                     <span class="text-3xl font-bold text-red-500">
                         ${{ product.price }}
                     </span>
 
+                    <!-- 商品折扣 -->
                     <span class="ml-3 text-lg text-gray-400 line-through">
                         ${{ product.originalPrice }}
                     </span>
                 </div>
-            </div>
 
-            <div class="mt-3">
+                <div class="mt-3">
                 <span class="bg-red-100 text-red-600 px-3 py-1 rounded">
                     {{ product.discount }}% OFF
                 </span>
             </div>
 
+            <!-- 商品分類 -->
             <div class="mt-6 text-gray-600">
                 <p>商品分類：{{ product.category }}</p>
             </div>
 
+            <!-- 購買數量 -->
             <div class="mt-8">
                 <p class="text-sm text-gray-600 mb-3">
                     購買數量
@@ -94,7 +98,17 @@ const quantity = ref(1)
                 >
                     加入購物車
                 </button>
+
+                <button
+                    @click="emit('open-cart')"
+                    class="mt-4 border border-blue-600 text-blue-600 px-6 py-3 rounded-lg hover:bg-blue-50 transition"
+                >
+                    查看購物車
+                </button>
             </div>
+            </div>
+
+            
 
         </div>
     

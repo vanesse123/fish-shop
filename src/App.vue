@@ -6,11 +6,13 @@ import Banner from './components/Banner.vue'
 import ProductList from './components/ProductList.vue'
 import SaleSection from './components/SaleSection.vue'
 import ProductDetail from './components/ProductDetail.vue'
+import Cart from './components/Cart.vue'
 
 const selectedCategory = ref('全部商品')
 const searchKeyword = ref('')
 const selectedProduct = ref(null)
 const cart = ref([])
+const showCart = ref(false)
 
 function searchProducts(keyword){
   searchKeyword.value = keyword.trim()
@@ -37,15 +39,50 @@ function addToCart(item) {
 
   console.log('目前購物車:',cart.value)
 }
+
+function opencart() {
+  showCart.value = true
+}
+
+function closecart() {
+  showCart.value = false
+  selectedProduct.value = null
+}
+
+function updateCartQuantity(productId,change) {
+  const item = cart.value.find(
+    cartItem => cartItem.product.id === productId
+  )
+
+  if (item) {
+    item.quantity = Math.max(1,item.quantity + change)
+  }
+}
+
+function removeCartItem(productId) {
+  cart.value = cart.value.filter(
+    item => item.product.id !== productId
+  )
+}
 </script>
 
 <template>
+  <Cart
+    v-if="showCart"
+    :cart="cart"
+    @back="closecart"
+    @update-quantity="updateCartQuantity"
+    @remove-item="removeCartItem"
+  />
+
   <ProductDetail 
-    v-if="selectedProduct"
+    v-else-if="selectedProduct"
     :product="selectedProduct"
     @back="backToProducts"
     @add-to-cart="addToCart"
+    @open-cart="opencart"
   />
+
   <template v-else>
     <Navbar @search="searchProducts" />
 

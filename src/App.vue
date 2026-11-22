@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue'
+import { ref,watch } from 'vue'
 import Navbar from './components/Navbar.vue'
 import CategoryNav from './components/CategoryNav.vue'
 import Banner from './components/Banner.vue'
@@ -11,8 +11,18 @@ import Cart from './components/Cart.vue'
 const selectedCategory = ref('全部商品')
 const searchKeyword = ref('')
 const selectedProduct = ref(null)
-const cart = ref([])
+
+const savedCart = localStorage.getItem('cart')
+const cart = ref(savedCart ? JSON.parse(savedCart) : [])
 const showCart = ref(false)
+watch(
+  cart,
+  (newCart) => {
+    localStorage.setItem('cart', JSON.stringify(newCart))
+  },
+  { deep: true}
+)
+
 
 function searchProducts(keyword){
   searchKeyword.value = keyword.trim()
